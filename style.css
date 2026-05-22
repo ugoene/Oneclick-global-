@@ -47,13 +47,24 @@
 
   /* ─── NAV ─── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 2000;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 5vw; height: 72px;
     background: rgba(10,10,10,0.92);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(230, 57, 70, 0.15);
     transition: var(--transition);
+  }
+  @media (max-width: 768px) {
+    .hero-left { padding: 60px 4vw 50px 4vw; }
+    .hero-title { font-size: clamp(34px, 9vw, 58px); }
+    .hero-sub { font-size: 15px; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    .hero-actions { gap: 12px; }
+    .trusted-logos { gap: 14px; }
+    .jobs-header { flex-direction: column; align-items: stretch; }
+    .jobs-header a { width: 100%; }
+    .section-pad { padding: 70px 0; }
   }
   nav.scrolled {
     height: 60px;
@@ -869,8 +880,61 @@
   .notification-text { color: var(--white); font-size: 13px; }
 
   /* ─── MOBILE HAMBURGER ─── */
+  .mobile-menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    z-index: 1500;
+    background: rgba(10, 10, 10, 0.96);
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.4s ease, opacity 0.35s ease;
+  }
+  .mobile-menu.open {
+    max-height: calc(100vh - 72px);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 22px 5vw 28px;
+  }
+  .mobile-menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+  .mobile-menu-links a {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: color 0.25s ease;
+  }
+  .mobile-menu-links a:hover { color: var(--gold); }
+  .mobile-menu-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
   .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
   .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: var(--transition); }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1100px) {
@@ -892,6 +956,13 @@
     .dash-sidebar { display: none; }
     nav .nav-links, nav .nav-cta { display: none; }
     .hamburger { display: flex; }
+    nav { padding: 0 4vw; }
+    .section-pad { padding: 90px 0; }
+    .hero-left { padding: 68px 4vw 64px 4vw; }
+    .hero-sub { max-width: 100%; }
+    .hero-actions { margin-bottom: 48px; }
+    .hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .jobs-grid, .testi-grid, .insights-grid, .values-grid, .team-grid { gap: 20px; }
   }
 
   @media (max-width: 640px) {

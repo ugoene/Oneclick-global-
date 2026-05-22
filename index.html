@@ -29,10 +29,27 @@
     <a href="#" class="btn-outline-nav" onclick="showPage('dashboard')">Dashboard</a>
     <a href="#" class="btn-gold-nav" onclick="showPage('consultancy')">Request Consultancy</a>
   </div>
-  <button class="hamburger" id="hamburger">
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <ul class="mobile-menu-links">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('about')">About</a></li>
+      <li><a href="#" onclick="showPage('services')">Services</a></li>
+      <li><a href="#" onclick="showPage('jobs')">Find Jobs</a></li>
+      <li><a href="https://oneclickglobal.asltravels.co/" target="_blank">Flight</a></li>
+      <li><a href="#" onclick="showPage('insights')">Insights</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <div class="mobile-menu-cta">
+      <a href="#" class="btn-outline-nav" onclick="showPage('dashboard')">Dashboard</a>
+      <a href="#" class="btn-gold-nav" onclick="showPage('consultancy')">Request Consultancy</a>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════ HOME PAGE -->
 <div id="page-home" class="page active">
@@ -896,7 +913,30 @@
 <script>
 // ─── PAGE NAVIGATION ───
 const pages = ['home','jobs','services','consultancy','about','insights','contact','dashboard'];
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function toggleMobileMenu() {
+  if (!mobileMenu) return;
+  const open = mobileMenu.classList.toggle('open');
+  hamburger?.classList.toggle('open', open);
+  mobileMenu.setAttribute('aria-hidden', (!open).toString());
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.remove('open');
+  hamburger?.classList.remove('open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+hamburger?.addEventListener('click', toggleMobileMenu);
+window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMobileMenu(); });
+
 function showPage(name) {
+  closeMobileMenu();
   pages.forEach(p => {
     const el = document.getElementById('page-' + p);
     if (el) el.classList.toggle('active', p === name);
